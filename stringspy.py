@@ -5,9 +5,10 @@ from pytz import timezone
 import os, re, subprocess
 import requests
 
+# This block, till the end comment, can be copied into your app to generate it
+
 rn = datetime.now(timezone('Europe/Berlin')) # Time for me
 op_string = rn.strftime("%d/%m/%Y %H:%M:%S") # Time in sexy
-
 
 def hwid(): # Get System HWID (works fine with Win11 unlike the module that does the same)
     try:
@@ -22,6 +23,8 @@ def stringspy(module):
     levalue = f"IP: {requests.get('https://ident.me').text} | Computer Name: {name} | Computer HWID: {hwid()} | Payload: {module} | Generated at: {op_string}"
     stringspy = encode(str(b64encode(encode(levalue, 'rot13').encode("utf-8"))).replace("b'", "").replace("'", ""), "rot13")
     return stringspy
+
+# END COMMENT
 
 def unstringspy(stringspy):
     decoder = str(decode(str(b64decode(decode(stringspy, 'rot13'))), "rot13")).replace("o'", "").replace("'", "")
